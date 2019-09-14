@@ -2,25 +2,22 @@
 
 let stateModel = require('../Models/State');
 let constants = require('../Utils/Constants');
-const url = require('url');
-const querystring = require('querystring');
 
 var StateController = {
 
     // The Get method Returns the states created by a user,
     // but by passing the parameter 'count' we can specify how many states we want
     Get : (req,res)=>{
-        //Get paramas by queryString
-        let parameters = querystring.parse(url.parse(req.url).query);
+        
         let where = {}
-        if(parameters.userid){
-            where= { userid:parameters.userid }
+        if(req.query.userid){
+            where= { userid:req.query.userid }
         }
 
         let count = 20  
-        if(parameters.count){
+        if(req.query.count){
             //If Count is not a number, we will return a maximum of 20 records
-            count = !(typeof parameters.count == 'number' && count >= 0) ?  count = parseInt(parameters.count) : count;
+            count = (typeof req.query.count == 'number' && req.query.count >= 0) ?  count = parseInt(req.query.count) : count;
         }
 
         stateModel.find(where).sort({name:1}).limit(count)
@@ -32,13 +29,10 @@ var StateController = {
     },
 
     GetGroup : (req,res)=>{
-        //Get paramas by queryString
-        let parameters = querystring.parse(url.parse(req.url).query);
-       
-        let count = 50  
-        if(parameters.count){
+        let count = 50;  
+        if(req.query.count){
             //If Count is not a number, we will return a maximum of 50 records
-            count = !(typeof parameters.count == 'number' && count >= 0) ?  count = parseInt(parameters.count) : count;
+            count = !(typeof req.query.count == 'number' && req.query.count >= 0) ?  count = parseInt(req.query.count) : count;
         }
 
         stateModel.find({userid:undefined}).limit(count)

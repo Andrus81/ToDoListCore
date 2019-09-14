@@ -2,28 +2,26 @@
 
 let taskModel = require('../Models/Task');
 let constants = require('../Utils/Constants');
-const url = require('url');
-const querystring = require('querystring');
 
 var TaskController = {
 
     // The Get method Returns the Tasks created by a user,
     // but by passing the parameter 'count' we can specify how many Tasks we want
     Get : (req,res)=>{
-        //Get paramas by queryString
-        let parameters = querystring.parse(url.parse(req.url).query);
-
         let where = {}
-        if(parameters.userid && parameters.stateid){
-            where= { userid:parameters.userid,stateid:parameters.stateid }
-        }else if(parameters.userid){
-            where= { userid:parameters.userid }
-        }else if (parameters.stateid){
-            where= { stateid:parameters.stateid }
+        let userid = req.query.userid;
+        let stateid = req.query.stateid;
+
+        if(userid && stateid){
+            where = { userid:userid,stateid:stateid }
+        }else if(userid){
+            where = { userid:userid}
+        }else if (stateid){
+            where = { stateid:stateid }
         }
         
         let count = parseInt(req.query.count);
-        if(!(typeof count == 'number' && count>=0)){ count =20; }
+        if((typeof count == 'number' && count>=0)){ count =20; }
 
         taskModel.find(where).sort({name:1}).limit(count)
         .then(data=>{

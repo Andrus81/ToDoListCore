@@ -2,22 +2,19 @@
 
 var userModel = require('../Models/User');
 let constants = require('../Utils/Constants');
-const url = require('url');
-const querystring = require('querystring');
 
 var UserController = {
     // The Get method returns the users created in the system
     // but by passing the parameter 'count' we can specify how many Tasks we want
     Get: (req, res) => {    
-        //Get paramas by queryString
-        let parameters = querystring.parse(url.parse(req.url).query);
         let where = {}
-        if(parameters.userid){
-            where= { _id:parameters.userid }
+
+        if(req.query.userid){
+            where= { _id:req.query.userid}
         }
         let count = 20  
-        if(parameters.count){
-            count = !(typeof parameters.count == 'number' && count >= 0) ?  count = parseInt(parameters.count) : count;
+        if(req.query.count){
+            count = !(typeof req.query.count == 'number' && count >= 0) ?  count = parseInt(req.query.count) : count;
         }
         
         userModel.find(where).sort({username:1}).limit(count)
