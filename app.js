@@ -1,11 +1,11 @@
 'use strict'
 
 //Components
-var express = require("express");
+let express = require("express");
 const bodyParser = require("body-parser");
 const cors = require('cors');
-var mongoDB = require("./Database/MongoConnection");
-var ApiRoutes = require("./Routes/Api");
+let mongoDB = require("./Database/MongoConnection");
+let ApiRoutes = require("./Routes/Api");
 
 //Instances
 var app = express();

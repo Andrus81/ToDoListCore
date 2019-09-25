@@ -79,11 +79,15 @@ _4.  StateController_
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
 
-* [NodeJs](https://nodejs.org/es/) 
-* [Exressjs](http://expressjs.com/) 
+* [NodeJs](https://nodejs.org/es) 
+* [Exressjs](http://expressjs.com) 
 * [Body-Parser](https://www.npmjs.com/package/body-parser)
-* [Mongoose](https://mongoosejs.com/)
+* [Mongoose](https://mongoosejs.com)
 * [Cors](https://www.npmjs.com/package/cors)
+* [Mocha](https://mochajs.org)
+* [Chai](https://www.chaijs.com)
+* [Chai-Http](https://www.chaijs.com/plugins/chai-http)
+
 
 
 ---
